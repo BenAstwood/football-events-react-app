@@ -1,4 +1,4 @@
-function getData() {
+function getData(options = null) {
 
   const w = new WebSocket("ws://localhost:8889");
 
@@ -6,13 +6,20 @@ function getData() {
     w.addEventListener("message", e => {
       let result = JSON.parse(e.data);
 
-      if (result.type === 'LIVE_EVENTS_DATA') {
+      console.log(result);
 
-        this.setState({data: result});
+      if (result.type !== 'init') {
+
+        this.setState({data: result.data});
       }
     });
 
-    w.send(JSON.stringify({type: "getLiveEvents", primaryMarkets: false}))
+    w.send(JSON.stringify(options
+      ? options
+      : {
+        type: "getLiveEvents",
+        primaryMarkets: true
+      }))
   }
 }
 
