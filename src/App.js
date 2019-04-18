@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import getData from './helpers/getData.js';
+import Header from './components/templates/Header';
+import Main from './components/templates/Main';
+import getData from './helpers/getData';
 
 class App extends Component {
   state = {
@@ -14,7 +16,10 @@ class App extends Component {
 
   render() {
     return (
-      <div></div>
+      <div>
+        <Header/>
+        <Main props={this.state.data}/>
+      </div>
     );
   }
 }
