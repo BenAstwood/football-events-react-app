@@ -1,26 +1,49 @@
-function getData(options = null) {
+const w = new WebSocket("ws://localhost:8889");
 
-  const w = new WebSocket("ws://localhost:8889");
+export function initWebSocket() {
 
   w.onopen = () => {
     w.addEventListener("message", e => {
-      let result = JSON.parse(e.data);
 
-      console.log(result);
+      try {
+        let result = JSON.parse(e.data);
 
-      if (result.type !== 'init') {
-
-        this.setState({data: result.data});
+        switch (result.type) {
+          case 'INIT':
+            return;
+            break
+          case 'MARKET_DATA':
+            this.setState({marketData: result.data});
+            break;
+          default:
+            this.setState({data: result.data})
+        }
+      } catch (err) {
+        throw Error(err);
       }
+
     });
 
-    w.send(JSON.stringify(options
-      ? options
-      : {
-        type: "getLiveEvents",
-        primaryMarkets: true
-      }))
+    w.send(JSON.stringify({type: "getLiveEvents", primaryMarkets: true}))
   }
 }
 
-export default getData;
+export function getData(options) {
+
+  switch (w.readyState) {
+    case 1:
+      w.send(JSON.stringify(options));
+      break;
+    case 3:
+      throw Error('Websocket is closed');
+      break;
+    default:
+      const connectionCheck = setInterval(function () {
+
+        if (w.readyState === 1) {
+          clearInterval(connectionCheck);
+          w.send(JSON.stringify(options));
+        }
+      }, 5);
+  }
+}
