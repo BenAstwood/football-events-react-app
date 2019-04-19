@@ -9,14 +9,30 @@ export function initWebSocket() {
         let result = JSON.parse(e.data);
 
         switch (result.type) {
-          case 'INIT':
-            return;
-            break
+
+          case 'LIVE_EVENTS_DATA':
+            this.setState({data: result.data});
+            break;
+
+          case 'OUTCOME_DATA':
+            this.setState({
+              outcomes: [
+                ...this.state.outcomes,
+                result.data
+              ]
+            });
+            break;
+
           case 'MARKET_DATA':
+            result
+              .data
+              .outcomes
+              .forEach(outcome => getData(w.send(JSON.stringify({type: "getOutcome", id: outcome}))));
             this.setState({marketData: result.data});
             break;
+
           default:
-            this.setState({data: result.data})
+            return;
         }
       } catch (err) {
         throw Error(err);
