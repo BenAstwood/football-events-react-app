@@ -13,6 +13,8 @@ function toggleDecimal() {
     default:
       this.setState({toggleDecimal: true});
   }
+
+  this.setState({outcomes: []})
 }
 
 export default toggleDecimal;
