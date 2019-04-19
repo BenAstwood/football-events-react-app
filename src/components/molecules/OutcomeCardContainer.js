@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Divider from '@material-ui/core/Divider';
 import {withStyles} from '@material-ui/core/styles';
 import OutcomeCard from '../atoms/OutcomeCard';
 
