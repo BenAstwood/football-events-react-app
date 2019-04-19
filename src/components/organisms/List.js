@@ -10,12 +10,17 @@ class List extends Component {
     if (props !== null && Array.isArray(listItems)) {
       return <ul className={classes.root}>
         {listItems.map((item, index) => {
-          const {marketData, outcomes} = this.props.props;
+          const {marketData, outcomes, isDecimal} = this.props.props;
 
           if (marketData !== null && item.eventId === marketData.eventId && outcomes.length > 0) {
-            return <ListItem props={item} marketData={marketData} outcomes={outcomes} key={index}/>
+            return <ListItem
+              isDecimal={isDecimal}
+              props={item}
+              marketData={marketData}
+              outcomes={outcomes}
+              key={index}/>
           } else {
-            return <ListItem props={item} key={index}/>
+            return <ListItem isDecimal={isDecimal} props={item} key={index}/>
           }
         })
 }

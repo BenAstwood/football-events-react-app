@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Score from '../atoms/Score';
-import Competitor from '../atoms/Competitor';
 import MarketsModal from '../organisms/Modal';
+import MatchDetails from './MatchDetails'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -14,19 +13,7 @@ import {withStyles} from '@material-ui/core/styles';
 class ListItem extends Component {
   render() {
     const {classes} = this.props;
-    const {competitors, linkedEventTypeName, status, scores, markets} = this.props.props;
-    const {
-      active,
-      cashoutable,
-      displayable,
-      finished,
-      live,
-      requestabet,
-      resulted,
-      started,
-      suspended,
-      superBoostCount
-    } = status;
+    const {competitors, linkedEventTypeName, markets} = this.props.props;
 
     return (
       <li className={classes.root}>
@@ -44,25 +31,17 @@ class ListItem extends Component {
           </ExpansionPanelSummary>
           <Divider/>
           <ExpansionPanelDetails className={classes.details}>
-            <div className={classes.column}>
-              <Competitor prop={competitors[0]}/>
-              <div>
-                <Score newScore={scores['home']}/>
-                <span>
-                  V
-                </span>
-                <Score newScore={scores['away']}/>
-              </div>
-              <Competitor prop={competitors[1]}/>
-            </div>
-
+            <MatchDetails matchData={this.props.props}/>
           </ExpansionPanelDetails>
           <Divider/>
           <ExpansionPanelActions>
             <div >
               <Typography variant="caption">
                 Checkout the top bets
-                <MarketsModal props={this.props} marketId={markets}/>
+                <MarketsModal
+                  isDecimal={this.props.isDecimal}
+                  props={this.props}
+                  marketId={markets}/>
               </Typography>
             </div>
           </ExpansionPanelActions>
@@ -72,7 +51,7 @@ class ListItem extends Component {
   }
 }
 
-const styles = theme => ({
+const styles = {
   root: {
     width: '100%',
     'margin-bottom': '0.5rem'
@@ -94,18 +73,7 @@ const styles = theme => ({
   },
   column: {
     flexBasis: '33.33%'
-  },
-  helper: {
-    borderLeft: `2px solid black`,
-    padding: `2px 2px`
-  },
-  link: {
-    color: 'black',
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline'
-    }
   }
-});
+};
 
 export default withStyles(styles)(ListItem);

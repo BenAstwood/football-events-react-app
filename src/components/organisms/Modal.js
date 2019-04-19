@@ -21,13 +21,18 @@ const styles = theme => ({
 
 class MarketsModal extends React.Component {
   state = {
-    open: false
+    open: false,
+    dataCreated: null
   };
 
   getData = getData.bind(this)
 
   handleOpen = () => {
-    getData({type: "getMarket", id: this.props.marketId[0]})
+
+    if (this.state.dataCreated !== true || !this.props.props.marketData) {
+      getData({type: "getMarket", id: this.props.marketId[0]})
+      this.setState({dataCreated: true});
+    }
     this.setState({open: true});
   };
 
@@ -36,8 +41,8 @@ class MarketsModal extends React.Component {
   };
 
   render() {
-    const {classes} = this.props;
-    const {marketData} = this.props.props;
+    const {classes, isDecimal} = this.props;
+    const {marketData, outcomes} = this.props.props;
 
     return (
       <div>
@@ -53,10 +58,10 @@ class MarketsModal extends React.Component {
           open={this.state.open}
           onClose={this.handleClose}>
           <div className={classes.paper}>
-            {this.props.props.marketData
+            {marketData
               ? <div>
-                  <Typography variant="h6" id="modal-title">{this.props.props.marketData.name}</Typography>
-                  <OutcomeCardContainer data={this.props.props.outcomes}/>
+                  <Typography variant="h6" id="modal-title">{marketData.name}</Typography>
+                  <OutcomeCardContainer isDecimal={isDecimal} data={outcomes}/>
                 </div>
               : <Typography variant="h6" id="modal-title">Loading market...</Typography>}
           </div>

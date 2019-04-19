@@ -1,18 +1,23 @@
 import React, {Component} from 'react';
-import Divider from '@material-ui/core/Divider';
 import {withStyles} from '@material-ui/core/styles';
 import OutcomeCard from '../atoms/OutcomeCard';
 
 class OutcomeCardContainer extends Component {
 
   render() {
-    const {classes} = this.props;
+    const {classes, isDecimal} = this.props;
     const outcomes = this.props.data;
 
-    return (outcomes.map(outcome => <div key={outcome.outcomeId}><OutcomeCard props={outcome}/><Divider/></div>))
+    return (
+      <div className={classes.root}>{outcomes.map(outcome => <OutcomeCard key={outcome.outcomeId} isDecimal={isDecimal} props={outcome}/>)}</div>
+    )
   }
 }
 
-const styles = theme => ({root: {}});
+const styles = {
+  root: {
+    'margin-top': '3rem'
+  }
+};
 
 export default withStyles(styles)(OutcomeCardContainer);
