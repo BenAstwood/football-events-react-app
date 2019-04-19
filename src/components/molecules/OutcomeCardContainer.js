@@ -9,10 +9,16 @@ class OutcomeCardContainer extends Component {
     const {classes, isDecimal} = this.props;
     const outcomes = this.props.data;
 
-    return (outcomes.map(outcome => <div key={outcome.outcomeId}><OutcomeCard isDecimal={isDecimal} props={outcome}/><Divider/></div>))
+    return (
+      <div className={classes.root}>{outcomes.map(outcome => <OutcomeCard key={outcome.outcomeId} isDecimal={isDecimal} props={outcome}/>)}</div>
+    )
   }
 }
 
-const styles = theme => ({root: {}});
+const styles = {
+  root: {
+    'margin-top': '3rem'
+  }
+};
 
 export default withStyles(styles)(OutcomeCardContainer);

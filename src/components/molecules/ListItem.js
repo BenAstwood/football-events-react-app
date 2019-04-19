@@ -13,7 +13,7 @@ import {withStyles} from '@material-ui/core/styles';
 class ListItem extends Component {
   render() {
     const {classes} = this.props;
-    const {competitors, linkedEventTypeName, scores, markets} = this.props.props;
+    const {competitors, linkedEventTypeName, markets} = this.props.props;
 
     return (
       <li className={classes.root}>

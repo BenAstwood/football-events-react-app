@@ -26,9 +26,14 @@ class OutcomeCard extends Component {
   }
 }
 
-const styles = theme => ({
+const styles = {
   card: {
-    minWidth: 275
+    minWidth: 275,
+    'text-align': 'center',
+    width: '25%',
+    'min-height': '8rem',
+    display: 'inline-block',
+    margin: '1rem'
   },
   title: {
     fontSize: 14
@@ -36,6 +41,6 @@ const styles = theme => ({
   pos: {
     marginBottom: 12
   }
-});
+};
 
 export default withStyles(styles)(OutcomeCard);

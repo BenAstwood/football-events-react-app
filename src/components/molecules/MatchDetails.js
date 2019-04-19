@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 class MatchDetails extends Component {
   render() {
     const {classes} = this.props;
-    const {competitors, linkedEventTypeName, scores, markets} = this.props.matchData;
+    const {competitors, scores} = this.props.matchData;
 
     return (
       <div className={classes.column}>
