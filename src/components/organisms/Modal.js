@@ -21,13 +21,18 @@ const styles = theme => ({
 
 class MarketsModal extends React.Component {
   state = {
-    open: false
+    open: false,
+    dataCreated: null
   };
 
   getData = getData.bind(this)
 
   handleOpen = () => {
-    getData({type: "getMarket", id: this.props.marketId[0]})
+
+    if (this.state.dataCreated !== true || !this.props.props.marketData) {
+      getData({type: "getMarket", id: this.props.marketId[0]})
+      this.setState({dataCreated: true});
+    }
     this.setState({open: true});
   };
 

@@ -15,12 +15,20 @@ export function initWebSocket() {
             break;
 
           case 'OUTCOME_DATA':
-            this.setState({
-              outcomes: [
-                ...this.state.outcomes,
-                result.data
-              ]
-            });
+            const {outcomes} = this.state;
+
+            if (outcomes[0] && (outcomes[0].marketId !== result.data.marketId)) {
+              this.setState({
+                outcomes: [result.data]
+              });
+            } else {
+              this.setState({
+                outcomes: [
+                  ...outcomes,
+                  result.data
+                ]
+              });
+            }
             break;
 
           case 'MARKET_DATA':
