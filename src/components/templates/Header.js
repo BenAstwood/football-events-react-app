@@ -14,10 +14,10 @@ const Header = props => {
         <Typography variant="h6" color="inherit">
           Live football
         </Typography>
-        <Button onClick={props.toggleDecimal}>
+        <Button className={classes.toggleButton} onClick={props.toggleDecimal}>
           View prices as {props.isDecimal
-            ? 'Fraction'
-            : 'Decimal'}
+            ? 'Fractions'
+            : 'Decimals'}
         </Button>
       </Toolbar>
     </AppBar>
@@ -29,6 +29,9 @@ const styles = {
     flexGrow: 1,
     background: '#f44336',
     color: 'white'
+  },
+  toggleButton: {
+    'margin-left': 'auto'
   }
 };
 

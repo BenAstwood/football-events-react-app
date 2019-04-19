@@ -47,12 +47,15 @@ export function initWebSocket() {
 export function getData(options) {
 
   switch (w.readyState) {
+
     case 1:
       w.send(JSON.stringify(options));
       break;
+
     case 3:
       throw Error('Websocket is closed');
       break;
+
     default:
       const connectionCheck = setInterval(function () {
 

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Score from '../atoms/Score';
-import Competitor from '../atoms/Competitor';
 import MarketsModal from '../organisms/Modal';
+import MatchDetails from './MatchDetails'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -32,18 +31,7 @@ class ListItem extends Component {
           </ExpansionPanelSummary>
           <Divider/>
           <ExpansionPanelDetails className={classes.details}>
-            <div className={classes.column}>
-              <Competitor prop={competitors[0]}/>
-              <div>
-                <Score newScore={scores['home']}/>
-                <span>
-                  V
-                </span>
-                <Score newScore={scores['away']}/>
-              </div>
-              <Competitor prop={competitors[1]}/>
-            </div>
-
+            <MatchDetails matchData={this.props.props}/>
           </ExpansionPanelDetails>
           <Divider/>
           <ExpansionPanelActions>
@@ -63,7 +51,7 @@ class ListItem extends Component {
   }
 }
 
-const styles = theme => ({
+const styles = {
   root: {
     width: '100%',
     'margin-bottom': '0.5rem'
@@ -85,18 +73,7 @@ const styles = theme => ({
   },
   column: {
     flexBasis: '33.33%'
-  },
-  helper: {
-    borderLeft: `2px solid black`,
-    padding: `2px 2px`
-  },
-  link: {
-    color: 'black',
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline'
-    }
   }
-});
+};
 
 export default withStyles(styles)(ListItem);
