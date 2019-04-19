@@ -14,19 +14,7 @@ import {withStyles} from '@material-ui/core/styles';
 class ListItem extends Component {
   render() {
     const {classes} = this.props;
-    const {competitors, linkedEventTypeName, status, scores, markets} = this.props.props;
-    const {
-      active,
-      cashoutable,
-      displayable,
-      finished,
-      live,
-      requestabet,
-      resulted,
-      started,
-      suspended,
-      superBoostCount
-    } = status;
+    const {competitors, linkedEventTypeName, scores, markets} = this.props.props;
 
     return (
       <li className={classes.root}>
@@ -62,7 +50,10 @@ class ListItem extends Component {
             <div >
               <Typography variant="caption">
                 Checkout the top bets
-                <MarketsModal props={this.props} marketId={markets}/>
+                <MarketsModal
+                  isDecimal={this.props.isDecimal}
+                  props={this.props}
+                  marketId={markets}/>
               </Typography>
             </div>
           </ExpansionPanelActions>

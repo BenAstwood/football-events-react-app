@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
-import Divider from '@material-ui/core/Divider';
 import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 class OutcomeCard extends Component {
 
   render() {
-    const {classes} = this.props;
+    const {classes, isDecimal} = this.props;
     const outcome = this.props.props;
     const {price, name} = outcome;
 
@@ -20,11 +17,10 @@ class OutcomeCard extends Component {
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {name}
           </Typography>
-          <Typography variant="h5" component="h2">{price.decimal}</Typography>
+          <Typography variant="h5" component="h2">{isDecimal
+              ? price.decimal
+              : `${price.num}/${price.den}`}</Typography>
         </CardContent>
-        <CardActions>
-          <Button size="small">View price as fraction</Button>
-        </CardActions>
       </Card>
     )
   }

@@ -3,7 +3,7 @@ import Header from './components/templates/Header';
 import Main from './components/templates/Main';
 import {withStyles} from '@material-ui/core/styles';
 import {initWebSocket, getData} from './helpers/getData';
-import Grid from '@material-ui/core/Grid';
+import toggleDecimal from './helpers/toggleDecimal';
 
 class App extends Component {
   constructor(props) {
@@ -13,14 +13,16 @@ class App extends Component {
   state = {
     data: null,
     marketData: null,
-    outcomes: []
+    outcomes: [],
+    toggleDecimal: true
   };
 
   initWebSocket = initWebSocket.bind(this)
   getData = getData.bind(this)
+  toggleDecimal = toggleDecimal.bind(this)
 
   componentDidMount() {
-    this.initWebSocket()
+    this.initWebSocket();
   }
 
   render() {
@@ -28,8 +30,11 @@ class App extends Component {
 
     return (
       <div className={classes.root}>
-        <Header/>
+        <Header
+          toggleDecimal={this.toggleDecimal}
+          isDecimal={this.state.toggleDecimal}/>
         <Main
+          isDecimal={this.state.toggleDecimal}
           props={this.state.data}
           marketData={this.state.marketData}
           outcomes={this.state.outcomes}/>
